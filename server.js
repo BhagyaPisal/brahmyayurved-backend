@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import productsRoutes from "./routes/products.routes.js";
 import reviewsRoutes from "./routes/reviews.routes.js";
 import ordersRoutes from "./routes/orders.routes.js";
+import contactRoutes from "./routes/contact.routes.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/products", productsRoutes);
 app.use("/api/reviews", reviewsRoutes);
 app.use("/api/orders", ordersRoutes);
+app.use("/api/contact", contactRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);

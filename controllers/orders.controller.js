@@ -51,3 +51,32 @@ export const createOrder = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getOrderById = async (req, res, next) => {
+  try {
+    const { order_id } = req.params;
+
+    const { data: order, error } = await supabase
+      .from("orders")
+      .select("*")
+      .eq("id", order_id)
+      .single();
+
+    if (error) throw error;
+
+    const { data: items, error: itemsError } = await supabase
+      .from("order_items")
+      .select("*")
+      .eq("order_id", order_id);
+
+    if (itemsError) throw itemsError;
+
+    res.json({
+      success: true,
+      order,
+      items,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
